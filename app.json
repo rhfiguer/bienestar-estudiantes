@@ -27,7 +27,17 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "name": "Bienestar Estudiantes",
+      "shortName": "Bienestar",
+      "description": "App de bienestar estudiantil con contenido de salud mental, productividad y técnicas de estudio.",
+      "lang": "es",
+      "themeColor": "#FF6B35",
+      "backgroundColor": "#121212",
+      "display": "standalone",
+      "orientation": "portrait",
+      "scope": "/",
+      "startUrl": "/"
     },
     "plugins": [
       "expo-router"
