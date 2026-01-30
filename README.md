@@ -54,7 +54,6 @@ npx expo start
 npx expo start --web
 ```
 *   Presiona `w` en la terminal o abre el enlace en tu navegador.
-*   Ruta de administración: `/admin/upload` (Solo accesible para el admin configurado).
 
 ## 📱 Capturas
 
