@@ -1,4 +1,4 @@
-export type ContentType = 'audio' | 'video' | 'text';
+export type ContentType = 'audio' | 'video';
 
 export interface ContentItem {
     id: string;
@@ -7,9 +7,10 @@ export interface ContentItem {
     type: ContentType;
     category: string;
     imageUrl: string;
-    duration?: string; // For audio/video
-    contentUrl?: string; // For audio/video
-    body?: string; // For text
+    duration: string;
+    contentUrl: string;
+    body: string;
+    createdAt: string;
 }
 
 

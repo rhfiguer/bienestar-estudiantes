@@ -34,18 +34,14 @@ export const ContentCard = ({ item, isDark }: ContentCardProps) => {
                     <View style={styles.typeContainer}>
                         <Ionicons
                             name={
-                                item.type === 'audio'
-                                    ? 'musical-note'
-                                    : item.type === 'video'
-                                        ? 'videocam'
-                                        : 'document-text'
+                                item.type === 'video'
+                                    ? 'videocam'
+                                    : 'musical-note'
                             }
                             size={14}
                             color={theme.secondaryText}
                         />
-                        {item.duration && (
-                            <Text style={[styles.duration, { color: theme.secondaryText }]}> • {item.duration}</Text>
-                        )}
+                        <Text style={[styles.duration, { color: theme.secondaryText }]}> • {item.duration}</Text>
                     </View>
                 </View>
             </View>

@@ -1,13 +1,11 @@
 import { useColorScheme } from '@/components/useColorScheme';
 import { Colors } from '@/constants/Colors';
 import { useAuth } from '@/context/AuthContext';
-import { ContentService } from '@/services/content';
 import { Ionicons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
 import { useRouter } from 'expo-router';
 import { signOut, updateProfile } from 'firebase/auth';
 import React from 'react';
-import { ActivityIndicator, Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../../firebaseConfig';
 
@@ -30,33 +28,6 @@ export default function ProfileScreen() {
     const [isEditing, setIsEditing] = React.useState(false);
     const [newName, setNewName] = React.useState(user?.displayName || '');
 
-    const [uploading, setUploading] = React.useState(false);
-
-    const pickImage = async () => {
-        try {
-            const result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 0.5,
-            });
-
-            if (!result.canceled && user) {
-                setUploading(true);
-                const imageUri = result.assets[0].uri;
-                const imageUrl = await ContentService.uploadFile(
-                    imageUri,
-                    `avatars/${user.uid}_${Date.now()}`
-                );
-                await updateProfile(user, { photoURL: imageUrl });
-                Alert.alert('Éxito', 'Foto de perfil actualizada');
-            }
-        } catch (error: any) {
-            Alert.alert('Error', error.message);
-        } finally {
-            setUploading(false);
-        }
-    };
 
     const handleUpdateName = async () => {
         if (!user || !newName.trim()) return;
@@ -82,16 +53,6 @@ export default function ProfileScreen() {
                     ) : (
                         <Ionicons name="person-circle" size={100} color={theme.secondaryText} />
                     )}
-                    <Pressable
-                        style={[styles.cameraButton, { backgroundColor: theme.tint }]}
-                        onPress={pickImage}
-                        disabled={uploading}>
-                        {uploading ? (
-                            <ActivityIndicator size="small" color="#fff" />
-                        ) : (
-                            <Ionicons name="camera" size={20} color="#fff" />
-                        )}
-                    </Pressable>
                 </View>
 
                 {isEditing ? (
@@ -129,17 +90,6 @@ export default function ProfileScreen() {
             </View>
 
             <View style={styles.menu}>
-                {user?.email === 'rhfiguer@gmail.com' && (
-                    <Pressable
-                        style={[styles.menuItem, { borderBottomColor: theme.cardBackground }]}
-                        onPress={() => router.push('/admin/upload')}>
-                        <Ionicons name="cloud-upload-outline" size={24} color={theme.tint} />
-                        <Text style={[styles.menuLabel, { color: theme.text }]}>
-                            Panel de Administración (Subir)
-                        </Text>
-                        <Ionicons name="chevron-forward" size={20} color={theme.secondaryText} />
-                    </Pressable>
-                )}
 
                 <MenuItem icon="settings-outline" label="Configuración" theme={theme} />
                 <MenuItem icon="notifications-outline" label="Notificaciones" theme={theme} />
