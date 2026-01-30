@@ -21,6 +21,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// Validate config to prevent cryptic build errors
+if (!firebaseConfig.apiKey) {
+    console.warn('Firebase config is missing! Check your EXPO_PUBLIC_FIREBASE_API_KEY environment variable.');
+}
+
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
