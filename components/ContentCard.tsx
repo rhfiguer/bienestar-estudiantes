@@ -16,7 +16,7 @@ export const ContentCard = ({ item, isDark }: ContentCardProps) => {
 
     return (
         <Pressable
-            style={[styles.container, { backgroundColor: theme.cardBackground }]}
+            style={[styles.container, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
             onPress={() => router.push(`/player/${item.id}`)}
         >
             <View style={styles.imageContainer}>
@@ -56,25 +56,25 @@ export const ContentCard = ({ item, isDark }: ContentCardProps) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 16,
+        borderRadius: 4,
         overflow: 'hidden',
-        marginBottom: 20,
-        elevation: 4,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
+        marginBottom: 48, // 48px separation
+        borderWidth: 1,
+        borderColor: Colors.light.borderColor, // Using a fixed color or theme color
     },
     imageContainer: {
         width: '100%',
         aspectRatio: 16 / 9,
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.light.borderColor,
     },
     image: {
         width: '100%',
         height: '100%',
     },
     content: {
-        padding: 16,
+        padding: 24, // Increased padding
+        backgroundColor: '#FFFFFF', // Use explicit surface color
     },
     header: {
         flexDirection: 'row',
@@ -84,18 +84,20 @@ const styles = StyleSheet.create({
     },
     category: {
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: 'RobotoMono_400Regular',
         opacity: 0.7,
+        letterSpacing: 1,
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 20, // Slightly larger for headings
+        fontFamily: 'EBGaramond_500Medium',
         marginBottom: 8,
-        lineHeight: 24,
+        lineHeight: 26,
     },
     description: {
         fontSize: 14,
-        lineHeight: 20,
+        fontFamily: 'RobotoMono_400Regular',
+        lineHeight: 22, // 1.6 line height
         marginBottom: 12,
         opacity: 0.8,
     },
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     },
     author: {
         fontSize: 12,
-        fontWeight: '500',
+        fontFamily: 'RobotoMono_400Regular',
     },
     typeContainer: {
         flexDirection: 'row',
@@ -116,6 +118,7 @@ const styles = StyleSheet.create({
     },
     duration: {
         fontSize: 12,
+        fontFamily: 'RobotoMono_400Regular',
         marginLeft: 4,
     },
 });

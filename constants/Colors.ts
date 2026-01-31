@@ -1,23 +1,25 @@
-const tintColorLight = '#F25C05'; // Terra Orange
-const tintColorDark = '#F25C05'; // Terra Orange
+const tintColorLight = '#1A1A1A';
+const tintColorDark = '#FFFFFF';
 
 export const Colors = {
   light: {
-    text: '#000',
-    background: '#fff',
+    text: '#1A1A1A',
+    background: '#FBFBFB', // Off-white / Blanco Hueso
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
-    cardBackground: '#f5f5f5',
-    secondaryText: '#666',
+    cardBackground: '#FFFFFF', // Blanco puro para destacar bloques
+    secondaryText: '#828282',
+    borderColor: '#EDEDED',
   },
   dark: {
-    text: '#fff',
-    background: '#121212',
+    text: '#E0E0E0', // Blanco roto
+    background: '#121212', // Gris grafito profundo
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
-    cardBackground: '#1E1E1E',
-    secondaryText: '#B3B3B3',
+    cardBackground: '#1E1E1E', // Placeholder, manual implies dark paper feel
+    secondaryText: '#A0A0A0',
+    borderColor: '#2A2A2A',
   },
 };

@@ -82,11 +82,11 @@ export default function RegisterScreen() {
                 />
 
                 <Pressable
-                    style={[styles.button, { backgroundColor: theme.tint }]}
+                    style={styles.button}
                     onPress={handleRegister}
                     disabled={loading}>
                     {loading ? (
-                        <ActivityIndicator color="#fff" />
+                        <ActivityIndicator color="#1A1A1A" />
                     ) : (
                         <Text style={styles.buttonText}>Registrarse</Text>
                     )}
@@ -112,31 +112,39 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32,
-        fontWeight: 'bold',
+        fontFamily: 'EBGaramond_500Medium',
         marginBottom: 8,
     },
     subtitle: {
         fontSize: 16,
+        fontFamily: 'RobotoMono_400Regular',
         marginBottom: 40,
+        opacity: 0.8,
     },
     form: {
         gap: 16,
     },
     input: {
         padding: 16,
-        borderRadius: 12,
+        borderRadius: 4, // 4px radius
         fontSize: 16,
+        fontFamily: 'RobotoMono_400Regular',
+        borderWidth: 1,
+        borderColor: '#EDEDED',
     },
     button: {
         padding: 16,
-        borderRadius: 12,
+        borderRadius: 4, // 4px radius
         alignItems: 'center',
         marginTop: 8,
+        borderWidth: 1,
+        borderColor: '#1A1A1A',
+        backgroundColor: '#FFFFFF', // Force white background
     },
     buttonText: {
-        color: '#fff',
+        color: '#1A1A1A', // Black text
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'RobotoMono_400Regular',
     },
     linkButton: {
         alignItems: 'center',
