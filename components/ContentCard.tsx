@@ -39,7 +39,7 @@ export const ContentCard = ({ item, isDark }: ContentCardProps) => {
                     </Text>
                 )}
                 <View style={styles.footer}>
-                    <Text style={[styles.author, { color: theme.secondaryText }]}>{item.author}</Text>
+                    <Text style={[styles.author, { color: theme.secondaryText }]}>Curadoría Alba</Text>
                     <View style={styles.typeContainer}>
                         <Ionicons
                             name={item.type === 'video' ? 'videocam' : 'musical-note'}
