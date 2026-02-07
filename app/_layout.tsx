@@ -2,6 +2,9 @@ import {
   EBGaramond_500Medium,
 } from '@expo-google-fonts/eb-garamond';
 import {
+  Inter_400Regular,
+} from '@expo-google-fonts/inter';
+import {
   RobotoMono_400Regular,
 } from '@expo-google-fonts/roboto-mono';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
@@ -33,6 +36,7 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     EBGaramond_500Medium,
     RobotoMono_400Regular,
+    Inter_400Regular,
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.

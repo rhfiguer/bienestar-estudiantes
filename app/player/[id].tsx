@@ -3,10 +3,12 @@ import { Colors } from '@/constants/Colors';
 import { useFavorites } from '@/context/FavoritesContext';
 import { ContentService } from '@/services/content';
 import { Ionicons } from '@expo/vector-icons';
-import { Audio, ResizeMode, Video } from 'expo-av';
+import { ResizeMode, Video } from 'expo-av';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import InlineAudioPlayer from '@/components/InlineAudioPlayer';
 
 export default function PlayerScreen() {
     const { id } = useLocalSearchParams();
@@ -18,7 +20,6 @@ export default function PlayerScreen() {
 
     const [item, setItem] = useState<any>(null);
     const videoRef = React.useRef<Video>(null);
-    const [sound, setSound] = useState<Audio.Sound | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -38,41 +39,18 @@ export default function PlayerScreen() {
         fetchItem();
     }, [id]);
 
-    useEffect(() => {
-        return () => {
-            if (sound) {
-                sound.unloadAsync();
-            }
-        };
-    }, [sound]);
 
-    const handlePlayAudio = async () => {
-        if (!item?.contentUrl) return;
 
-        try {
-            if (sound) {
-                if (isPlaying) {
-                    await sound.pauseAsync();
-                    setIsPlaying(false);
-                } else {
-                    await sound.playAsync();
-                    setIsPlaying(true);
-                }
-            } else {
-                setIsLoading(true);
-                const { sound: newSound } = await Audio.Sound.createAsync(
-                    { uri: item.contentUrl },
-                    { shouldPlay: true }
-                );
-                setSound(newSound);
-                setIsPlaying(true);
-                setIsLoading(false);
-            }
-        } catch (error) {
-            console.error('Error playing audio', error);
-            setIsLoading(false);
-        }
-    };
+
+
+
+    if (isLoading) {
+        return (
+            <View style={[styles.container, { backgroundColor: theme.background, justifyContent: 'center', alignItems: 'center' }]}>
+                <ActivityIndicator size="large" color={theme.text} />
+            </View>
+        );
+    }
 
     if (!item) {
         return (
@@ -104,7 +82,7 @@ export default function PlayerScreen() {
 
             <ScrollView contentContainerStyle={styles.content}>
                 <Text style={[styles.title, { color: theme.text }]}>{item.title}</Text>
-                <Text style={[styles.author, { color: theme.secondaryText }]}>{item.author}</Text>
+                <Text style={[styles.author, { color: theme.secondaryText }]}>Curadoría Alba</Text>
 
                 {item.type === 'video' && item.contentUrl && (
                     <View style={styles.videoContainer}>
@@ -135,22 +113,8 @@ export default function PlayerScreen() {
                     </View>
                 )}
 
-                {item.type === 'audio' && (
-                    <View style={styles.audioContainer}>
-                        <View style={[styles.audioPlaceholder, { backgroundColor: theme.cardBackground }]}>
-                            <Ionicons name="musical-notes" size={60} color={theme.secondaryText} />
-                        </View>
-                        <Pressable
-                            style={[styles.playButton, { backgroundColor: theme.tint }]}
-                            onPress={handlePlayAudio}
-                            disabled={isLoading}>
-                            {isLoading ? (
-                                <ActivityIndicator color="#fff" />
-                            ) : (
-                                <Ionicons name={isPlaying ? 'pause' : 'play'} size={40} color="#fff" />
-                            )}
-                        </Pressable>
-                    </View>
+                {item.type === 'audio' && item.contentUrl && (
+                    <InlineAudioPlayer audioUri={item.contentUrl} />
                 )}
 
                 <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>{item.body}</Text>
