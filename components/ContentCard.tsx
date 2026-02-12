@@ -46,7 +46,7 @@ export const ContentCard = ({ item, isDark }: ContentCardProps) => {
                             size={14}
                             color={theme.secondaryText}
                         />
-                        <Text style={[styles.duration, { color: theme.secondaryText }]}> • {item.duration}</Text>
+
                     </View>
                 </View>
             </View>
@@ -115,10 +115,5 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 12,
         opacity: 0.6,
-    },
-    duration: {
-        fontSize: 14,
-        fontFamily: 'RobotoMono_400Regular',
-        marginLeft: 4,
     },
 });
