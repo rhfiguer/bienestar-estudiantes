@@ -11,6 +11,7 @@ import {
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack, useRouter, useSegments } from 'expo-router';
+import Head from 'expo-router/head';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
@@ -59,6 +60,11 @@ export default function RootLayout() {
   return (
     <AuthProvider>
       <FavoritesProvider>
+        <Head>
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+          <meta name="apple-mobile-web-app-title" content="Bienestar" />
+        </Head>
         <RootLayoutNav />
       </FavoritesProvider>
     </AuthProvider>
