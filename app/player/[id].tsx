@@ -18,6 +18,7 @@ export default function PlayerScreen() {
     const theme = isDark ? Colors.dark : Colors.light;
     const { toggleFavorite, isFavorite } = useFavorites();
 
+    const [mode, setMode] = useState<'listen' | 'read'>('listen');
     const [item, setItem] = useState<any>(null);
     const videoRef = React.useRef<Video>(null);
     const [isPlaying, setIsPlaying] = useState(false);
@@ -84,40 +85,73 @@ export default function PlayerScreen() {
                 <Text style={[styles.title, { color: theme.text }]}>{item.title}</Text>
                 <Text style={[styles.author, { color: theme.secondaryText }]}>Curadoría Alba</Text>
 
-                {item.type === 'video' && item.contentUrl && (
-                    <View style={styles.videoContainer}>
-                        <Video
-                            ref={videoRef}
-                            style={styles.video}
-                            source={{ uri: item.contentUrl }}
-                            useNativeControls
-                            resizeMode={ResizeMode.CONTAIN}
-                            isLooping
-                            onPlaybackStatusUpdate={status => setIsPlaying(status.isLoaded && status.isPlaying)}
-                            posterSource={{ uri: item.imageUrl }}
-                            usePoster
-                        />
-                        {!isPlaying && (
-                            <Pressable
-                                style={styles.videoOverlay}
-                                onPress={async () => {
-                                    if (videoRef.current) {
-                                        await videoRef.current.playAsync();
-                                    }
-                                }}>
-                                <View style={[styles.playButton, { backgroundColor: 'rgba(0,0,0,0.6)' }]}>
-                                    <Ionicons name="play" size={40} color="#fff" />
-                                </View>
-                            </Pressable>
+                {/* Toggle Control */}
+                <View style={[styles.toggleContainer, { borderColor: theme.borderColor }]}>
+                    <Pressable
+                        style={[
+                            styles.toggleButton,
+                            mode === 'listen' && { backgroundColor: theme.tint }
+                        ]}
+                        onPress={() => setMode('listen')}
+                    >
+                        <Text style={[
+                            styles.toggleText,
+                            { color: mode === 'listen' ? '#FFFFFF' : theme.text }
+                        ]}>Escuchar</Text>
+                    </Pressable>
+                    <Pressable
+                        style={[
+                            styles.toggleButton,
+                            mode === 'read' && { backgroundColor: theme.tint }
+                        ]}
+                        onPress={() => setMode('read')}
+                    >
+                        <Text style={[
+                            styles.toggleText,
+                            { color: mode === 'read' ? '#FFFFFF' : theme.text }
+                        ]}>Leer</Text>
+                    </Pressable>
+                </View>
+
+                {mode === 'listen' ? (
+                    <>
+                        {item.type === 'video' && item.contentUrl && (
+                            <View style={styles.videoContainer}>
+                                <Video
+                                    ref={videoRef}
+                                    style={styles.video}
+                                    source={{ uri: item.contentUrl }}
+                                    useNativeControls
+                                    resizeMode={ResizeMode.CONTAIN}
+                                    isLooping
+                                    onPlaybackStatusUpdate={status => setIsPlaying(status.isLoaded && status.isPlaying)}
+                                    posterSource={{ uri: item.imageUrl }}
+                                    usePoster
+                                />
+                                {!isPlaying && (
+                                    <Pressable
+                                        style={styles.videoOverlay}
+                                        onPress={async () => {
+                                            if (videoRef.current) {
+                                                await videoRef.current.playAsync();
+                                            }
+                                        }}>
+                                        <View style={[styles.playButton, { backgroundColor: 'rgba(0,0,0,0.6)' }]}>
+                                            <Ionicons name="play" size={40} color="#fff" />
+                                        </View>
+                                    </Pressable>
+                                )}
+                            </View>
                         )}
-                    </View>
+
+                        {item.type === 'audio' && item.contentUrl && (
+                            <InlineAudioPlayer audioUri={item.contentUrl} />
+                        )}
+                    </>
+                ) : (
+                    <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>{item.body}</Text>
                 )}
 
-                {item.type === 'audio' && item.contentUrl && (
-                    <InlineAudioPlayer audioUri={item.contentUrl} />
-                )}
-
-                <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>{item.body}</Text>
             </ScrollView>
         </View>
     );
@@ -189,6 +223,24 @@ const styles = StyleSheet.create({
         borderRadius: 40,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    toggleContainer: {
+        flexDirection: 'row',
+        marginBottom: 24,
+        borderRadius: 8,
+        borderWidth: 1,
+        overflow: 'hidden',
+        alignSelf: 'center',
+    },
+    toggleButton: {
+        paddingVertical: 8,
+        paddingHorizontal: 24,
+        minWidth: 100,
+        alignItems: 'center',
+    },
+    toggleText: {
+        fontWeight: '600',
+        fontSize: 14,
     },
     bodyText: {
         fontSize: 18,
