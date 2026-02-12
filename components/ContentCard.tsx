@@ -83,21 +83,21 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     category: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: 'RobotoMono_400Regular',
         opacity: 0.7,
         letterSpacing: 1,
     },
     title: {
-        fontSize: 20, // Slightly larger for headings
+        fontSize: 24, // Slightly larger for headings
         fontFamily: 'EBGaramond_500Medium',
         marginBottom: 8,
-        lineHeight: 26,
+        lineHeight: 30,
     },
     description: {
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: 'RobotoMono_400Regular',
-        lineHeight: 22, // 1.6 line height
+        lineHeight: 24, // 1.6 line height
         marginBottom: 12,
         opacity: 0.8,
     },
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     author: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: 'RobotoMono_400Regular',
     },
     typeContainer: {
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         opacity: 0.6,
     },
     duration: {
-        fontSize: 12,
+        fontSize: 14,
         fontFamily: 'RobotoMono_400Regular',
         marginLeft: 4,
     },
