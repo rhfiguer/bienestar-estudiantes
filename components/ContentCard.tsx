@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         width: '100%',
-        aspectRatio: 16 / 9,
+        aspectRatio: 4 / 3,
         borderBottomWidth: 1,
         borderBottomColor: Colors.light.borderColor,
     },
