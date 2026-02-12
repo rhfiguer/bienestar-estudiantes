@@ -10,6 +10,7 @@ export interface ContentItem {
     duration: string;
     contentUrl: string;
     body: string;
+    script?: string;
     createdAt: string;
 }
 

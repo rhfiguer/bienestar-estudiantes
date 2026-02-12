@@ -149,7 +149,9 @@ export default function PlayerScreen() {
                         )}
                     </>
                 ) : (
-                    <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>{item.body}</Text>
+                    <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>
+                        {item.script || item.body}
+                    </Text>
                 )}
 
             </ScrollView>
