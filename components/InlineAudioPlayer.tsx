@@ -1,4 +1,5 @@
 import { useColorScheme } from '@/components/useColorScheme';
+import { useAudio } from '@/context/AudioContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio, AVPlaybackStatus } from 'expo-av';
 import React, { useEffect, useRef, useState } from 'react';
@@ -12,12 +13,9 @@ interface InlineAudioPlayerProps {
 export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayerProps) {
     const colorScheme = useColorScheme();
     const isDark = colorScheme === 'dark';
-    // Using explicit colors from requirements, but adapting some if dark mode handles differently?
-    // User requested specifically "Background: #FFFFFF", "Borde: #EDEDED".
-    // I will stick to the user's specs for the "Notion-esque" look, maybe slightly adapting for dark mode if strictly necessary,
-    // but the request was very specific on colors. I'll use those as defaults for Light mode.
+    const { setSound: setGlobalSound, currentSound: globalSound } = useAudio();
 
-    // Theme colors for dark mode fallback or integration
+    // Theme colors
     const themeTextColor = isDark ? '#FFFFFF' : '#1A1A1A';
     const themeBgColor = isDark ? '#2C2C2C' : '#FFFFFF';
     const themeBorderColor = isDark ? '#404040' : '#EDEDED';
@@ -31,28 +29,52 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
     const [isLooping, setIsLooping] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Scrubber ref to calculate position on press
+    // Scrubber ref
     const scrubberRef = useRef<View>(null);
     const [scrubberWidth, setScrubberWidth] = useState(0);
 
     useEffect(() => {
         loadAudio();
         return () => {
+            // Unload on unmount to stop playing on exit
             if (sound) {
                 sound.unloadAsync();
+                // We don't necessarily need to clear global sound if we are navigating to another player
+                // which will overwrite it. But if we go back to menu, it's good practice.
+                // However, since 'sound' is captured in closure, we rely on the object reference.
             }
         };
     }, [audioUri]);
 
+    // Effect to track external stopping (e.g. by another player taking over)
+    useEffect(() => {
+        // If global sound changes and it's NOT our sound, we should probably know?
+        // Actually, if Context unloads our sound, our onPlaybackStatusUpdate should receive a generic/unloaded status or stop firing?
+        // Expo AV: unloadAsync() makes the object invalid.
+        // We might want to check if we are still the global sound?
+        // For now, relies on setSound(new) unloading the old one.
+    }, [globalSound]);
+
     const loadAudio = async () => {
         setIsLoading(true);
         try {
+            await Audio.setAudioModeAsync({
+                allowsRecordingIOS: false,
+                playsInSilentModeIOS: true,
+                staysActiveInBackground: false, // Stop when app is backgrounded? Or keep? User said "when I leave" (app or screen?). Assumed screen.
+            });
+
             const { sound: newSound, status } = await Audio.Sound.createAsync(
                 { uri: audioUri },
                 { shouldPlay: false, isLooping: isLooping },
                 onPlaybackStatusUpdate
             );
+
             setSound(newSound);
+
+            // Register with global context (this stops any previous audio)
+            await setGlobalSound(newSound);
+
             if (status.isLoaded) {
                 setDuration(status.durationMillis || 0);
             }
@@ -72,8 +94,12 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
 
             if (status.didJustFinish && !status.isLooping) {
                 setIsPlaying(false);
-                // Optional: reset to start? 
-                // sound?.setPositionAsync(0);
+                // sound?.setPositionAsync(0); // Optional auto-reset
+            }
+        } else {
+            // Unloaded
+            if (status.error) {
+                console.log(`FATAL PLAYER ERROR: ${status.error}`);
             }
         }
     };
@@ -83,11 +109,21 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
         if (isPlaying) {
             await sound.pauseAsync();
         } else {
-            // If finished, restart
             if (position >= duration && duration > 0) {
                 await sound.setPositionAsync(0);
             }
             await sound.playAsync();
+        }
+    };
+
+    const stopAudio = async () => {
+        if (!sound) return;
+        try {
+            await sound.stopAsync();
+            await sound.setPositionAsync(0);
+            setIsPlaying(false);
+        } catch (error) {
+            console.error("Error stopping audio", error);
         }
     };
 
@@ -129,7 +165,7 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
             },
             style
         ]}>
-            {/* Play/Pause Button - Leftmost */}
+            {/* Play/Pause Button */}
             <Pressable
                 onPress={togglePlayPause}
                 style={styles.playButton}
@@ -144,6 +180,15 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
                         color={activeColor}
                     />
                 )}
+            </Pressable>
+
+            {/* Stop Button (NEW) */}
+            <Pressable
+                onPress={stopAudio}
+                style={[styles.iconButton, { marginRight: 8 }]}
+                disabled={isLoading}
+            >
+                <Ionicons name="square" size={20} color={activeColor} />
             </Pressable>
 
             {/* Skip Controls */}
@@ -188,7 +233,6 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
                             {
                                 left: `${progressPercent}%`,
                                 backgroundColor: activeColor,
-                                // Adjust marginLeft to center the 8px handle (-4px)
                                 marginLeft: -4
                             }
                         ]}
@@ -220,22 +264,22 @@ const styles = StyleSheet.create({
         height: 72,
         borderWidth: 1,
         borderRadius: 4,
-        paddingHorizontal: 20,
+        paddingHorizontal: 12, // Reduced padding slightly to fit Stop button
         marginVertical: 16,
         width: '100%',
     },
     playButton: {
-        width: 48,
-        height: 48,
+        width: 44, // Slightly smaller
+        height: 44,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 12,
+        marginRight: 4, // Reduce margin
     },
     controlsGroup: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 8,
-        marginRight: 16,
+        gap: 6, // Reduce gap
+        marginRight: 10, // Reduce margin
     },
     iconButton: {
         padding: 4,
@@ -251,7 +295,7 @@ const styles = StyleSheet.create({
     },
     scrubberContainer: {
         flex: 1,
-        height: 40, // Taller touch area for usability
+        height: 40,
         justifyContent: 'center',
     },
     scrubberTouchArea: {
@@ -265,7 +309,7 @@ const styles = StyleSheet.create({
         borderRadius: 1,
     },
     scrubberProgress: {
-        height: 1, // Same as line
+        height: 1,
         position: 'absolute',
         borderRadius: 1,
     },
@@ -274,15 +318,13 @@ const styles = StyleSheet.create({
         height: 12,
         borderRadius: 6,
         position: 'absolute',
-        top: '50%', // Center vertically relative to container ??? 
-        // Actually since container is 30px, top 50% is 15px.
-        // We need to offset by half height (-4px).
+        top: '50%',
         marginTop: -6,
     },
     timeText: {
-        fontFamily: 'Inter_600SemiBold', // Assuming Inter is loaded as per generic styles, or fallback
-        fontSize: 14,
-        marginLeft: 12,
-        fontVariant: ['tabular-nums'], // Fixed width numbers if supported
+        fontFamily: 'Inter_600SemiBold',
+        fontSize: 12, // Slightly smaller
+        marginLeft: 8,
+        fontVariant: ['tabular-nums'],
     }
 });

@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { AudioProvider } from '@/context/AudioContext';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { FavoritesProvider } from '@/context/FavoritesContext';
 
@@ -59,14 +60,16 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <FavoritesProvider>
-        <Head>
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-          <meta name="apple-mobile-web-app-title" content="Bienestar" />
-        </Head>
-        <RootLayoutNav />
-      </FavoritesProvider>
+      <AudioProvider>
+        <FavoritesProvider>
+          <Head>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+            <meta name="apple-mobile-web-app-title" content="Bienestar" />
+          </Head>
+          <RootLayoutNav />
+        </FavoritesProvider>
+      </AudioProvider>
     </AuthProvider>
   );
 }
