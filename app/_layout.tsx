@@ -3,6 +3,7 @@ import {
 } from '@expo-google-fonts/eb-garamond';
 import {
   Inter_400Regular,
+  Inter_600SemiBold,
 } from '@expo-google-fonts/inter';
 import {
   RobotoMono_400Regular,
@@ -37,6 +38,7 @@ export default function RootLayout() {
     EBGaramond_500Medium,
     RobotoMono_400Regular,
     Inter_400Regular,
+    Inter_600SemiBold,
   });
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.

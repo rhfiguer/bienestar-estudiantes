@@ -140,7 +140,7 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
                 ) : (
                     <Ionicons
                         name={isPlaying ? "pause-outline" : "play-outline"}
-                        size={24}
+                        size={32}
                         color={activeColor}
                     />
                 )}
@@ -149,11 +149,11 @@ export default function InlineAudioPlayer({ audioUri, style }: InlineAudioPlayer
             {/* Skip Controls */}
             <View style={styles.controlsGroup}>
                 <Pressable onPress={() => skip(-15)} style={styles.iconButton}>
-                    <Ionicons name="play-back-outline" size={18} color={activeColor} />
+                    <Ionicons name="play-back-outline" size={22} color={activeColor} />
                     <Text style={[styles.tinyText, { color: activeColor }]}>15</Text>
                 </Pressable>
                 <Pressable onPress={() => skip(15)} style={styles.iconButton}>
-                    <Ionicons name="play-forward-outline" size={18} color={activeColor} />
+                    <Ionicons name="play-forward-outline" size={22} color={activeColor} />
                     <Text style={[styles.tinyText, { color: activeColor }]}>15</Text>
                 </Pressable>
             </View>
@@ -217,16 +217,16 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        height: 64,
+        height: 72,
         borderWidth: 1,
         borderRadius: 4,
-        paddingHorizontal: 16,
+        paddingHorizontal: 20,
         marginVertical: 16,
         width: '100%',
     },
     playButton: {
-        width: 32,
-        height: 32,
+        width: 48,
+        height: 48,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 12,
@@ -243,18 +243,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     tinyText: {
-        fontSize: 8,
+        fontSize: 10,
+        fontFamily: 'Inter_600SemiBold',
         position: 'absolute',
         bottom: -2,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     scrubberContainer: {
         flex: 1,
-        height: 30, // Taller touch area for usability
+        height: 40, // Taller touch area for usability
         justifyContent: 'center',
     },
     scrubberTouchArea: {
-        height: 30,
+        height: 40,
         justifyContent: 'center',
     },
     scrubberLine: {
@@ -269,18 +270,18 @@ const styles = StyleSheet.create({
         borderRadius: 1,
     },
     scrubberHandle: {
-        width: 8,
-        height: 8,
-        borderRadius: 4,
+        width: 12,
+        height: 12,
+        borderRadius: 6,
         position: 'absolute',
         top: '50%', // Center vertically relative to container ??? 
         // Actually since container is 30px, top 50% is 15px.
         // We need to offset by half height (-4px).
-        marginTop: -4,
+        marginTop: -6,
     },
     timeText: {
-        fontFamily: 'Inter_400Regular', // Assuming Inter is loaded as per generic styles, or fallback
-        fontSize: 12,
+        fontFamily: 'Inter_600SemiBold', // Assuming Inter is loaded as per generic styles, or fallback
+        fontSize: 14,
         marginLeft: 12,
         fontVariant: ['tabular-nums'], // Fixed width numbers if supported
     }
