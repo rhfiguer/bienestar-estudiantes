@@ -1,0 +1,24 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── User Assessments ───
+    // Only the authenticated user can read/write their own assessments.
+    // This is the core privacy guarantee: no other user, admin, or developer
+    // can access individual assessment responses through Firestore.
+    match /users/{userId}/assessments/{assessmentId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ─── User Consent ───
+    // Only the authenticated user can manage their own consent preferences.
+    match /users/{userId}/profile/{document} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // ─── Default: deny everything else ───
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { AssessmentProvider } from '@/context/AssessmentContext';
 import { AudioProvider } from '@/context/AudioContext';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { FavoritesProvider } from '@/context/FavoritesContext';
@@ -62,12 +63,14 @@ export default function RootLayout() {
     <AuthProvider>
       <AudioProvider>
         <FavoritesProvider>
-          <Head>
-            <meta name="apple-mobile-web-app-capable" content="yes" />
-            <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-            <meta name="apple-mobile-web-app-title" content="Bienestar" />
-          </Head>
-          <RootLayoutNav />
+          <AssessmentProvider>
+            <Head>
+              <meta name="apple-mobile-web-app-capable" content="yes" />
+              <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+              <meta name="apple-mobile-web-app-title" content="Bienestar" />
+            </Head>
+            <RootLayoutNav />
+          </AssessmentProvider>
         </FavoritesProvider>
       </AudioProvider>
     </AuthProvider>
@@ -111,6 +114,10 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="assessment/consent" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="assessment/pulse" options={{ headerShown: false }} />
+        <Stack.Screen name="assessment/result" options={{ headerShown: false }} />
+        <Stack.Screen name="assessment/history" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );
