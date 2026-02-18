@@ -76,11 +76,11 @@ export default function BienestarScreen() {
                         <View style={styles.checkinIconContainer}>
                             <RnImage
                                 source={require('@/assets/images/doodle-checkin.png')}
-                                style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                                style={{ width: 140, height: 80, resizeMode: 'contain' }}
                             />
                         </View>
 
-                        <View style={styles.checkinText}>
+                        <View style={styles.checkinTextContainer}>
                             <Text style={[styles.checkinTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Check-in de Bienestar
                             </Text>
@@ -232,21 +232,23 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     checkinContent: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: 'center',
         gap: 16,
     },
     checkinIconContainer: {
-        width: 48,
-        height: 48,
+        width: '100%',
+        height: 100,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    checkinText: {
-        flex: 1,
+    checkinTextContainer: {
+        alignItems: 'center',
+        marginBottom: 8,
     },
     checkinTitle: {
-        fontSize: 18,
+        fontSize: 22,
+        textAlign: 'center',
     },
     checkinDescription: {
         fontSize: 14,

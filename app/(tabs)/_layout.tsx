@@ -43,13 +43,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <Ionicons name="pulse" size={24} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="search"
-        options={{
-          title: 'Buscar',
-          tabBarIcon: ({ color }) => <Ionicons name="search" size={24} color={color} />,
-        }}
-      />
+
       <Tabs.Screen
         name="library"
         options={{

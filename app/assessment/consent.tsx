@@ -1,12 +1,10 @@
-import { useColorScheme } from '@/components/useColorScheme';
-import { Colors } from '@/constants/Colors';
 import { useAssessment } from '@/context/AssessmentContext';
-import { useAuth } from '@/context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
     Pressable,
+    Image as RnImage,
     ScrollView,
     StyleSheet,
     Text,
@@ -16,10 +14,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ConsentScreen() {
     const router = useRouter();
-    const colorScheme = useColorScheme();
-    const isDark = colorScheme === 'dark';
-    const theme = isDark ? Colors.dark : Colors.light;
-    const { user } = useAuth();
     const { saveConsent } = useAssessment();
 
     const [analyticsConsent, setAnalyticsConsent] = useState(false);
@@ -50,13 +44,13 @@ export default function ConsentScreen() {
     };
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: '#FBFBFB' }]}>
             {/* Header */}
             <View style={styles.header}>
                 <Pressable onPress={() => router.back()} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color={theme.text} />
+                    <Ionicons name="arrow-back" size={24} color="#000000" />
                 </Pressable>
-                <Text style={[styles.headerTitle, { color: theme.text }]}>
+                <Text style={[styles.headerTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                     Tu Privacidad
                 </Text>
                 <View style={{ width: 24 }} />
@@ -69,45 +63,61 @@ export default function ConsentScreen() {
             >
                 {/* Shield Icon */}
                 <View style={styles.iconContainer}>
-                    <View style={[styles.iconCircle, { backgroundColor: isDark ? '#1a3a2a' : '#E8F5E9' }]}>
-                        <Ionicons name="shield-checkmark" size={48} color="#4CAF50" />
-                    </View>
+                    <RnImage
+                        source={require('@/assets/images/doodle-consent-shield.png')}
+                        style={{ width: 120, height: 120, resizeMode: 'contain' }}
+                    />
                 </View>
 
-                <Text style={[styles.title, { color: theme.text }]}>
+                <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                     Antes de comenzar
                 </Text>
 
-                <Text style={[styles.description, { color: theme.secondaryText }]}>
+                <Text style={[styles.description, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
                     Este cuestionario forma parte de nuestro sistema de bienestar estudiantil. Tus respuestas
                     nos ayudan a detectar si necesitas apoyo adicional.
                 </Text>
 
                 {/* Info Cards */}
-                <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                    <Ionicons name="lock-closed" size={20} color="#4CAF50" />
-                    <Text style={[styles.infoText, { color: theme.text }]}>
-                        Tus respuestas individuales son privadas y están cifradas. Solo tú puedes verlas.
+                <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                    <View style={styles.infoIconContainer}>
+                        <RnImage
+                            source={require('@/assets/images/doodle-privacy-lock.png')}
+                            style={{ width: 24, height: 24, resizeMode: 'contain' }}
+                        />
+                    </View>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'Inter_400Regular' }]}>
+                        Tus respuestas individuales son privadas y están cifradas.
                     </Text>
                 </View>
 
-                <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                    <Ionicons name="analytics" size={20} color="#2196F3" />
-                    <Text style={[styles.infoText, { color: theme.text }]}>
-                        Solo se comparten datos anónimos y agregados para mejorar los programas de bienestar.
+                <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                    <View style={styles.infoIconContainer}>
+                        <RnImage
+                            source={require('@/assets/images/doodle-privacy-analytics.png')}
+                            style={{ width: 24, height: 24, resizeMode: 'contain' }}
+                        />
+                    </View>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'Inter_400Regular' }]}>
+                        Solo se comparten datos anónimos y agregados.
                     </Text>
                 </View>
 
-                <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                    <Ionicons name="trash" size={20} color="#FF9800" />
-                    <Text style={[styles.infoText, { color: theme.text }]}>
-                        Puedes eliminar todos tus datos en cualquier momento desde tu perfil.
+                <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                    <View style={styles.infoIconContainer}>
+                        <RnImage
+                            source={require('@/assets/images/doodle-privacy-trash.png')}
+                            style={{ width: 24, height: 24, resizeMode: 'contain' }}
+                        />
+                    </View>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'Inter_400Regular' }]}>
+                        Puedes eliminar todos tus datos en cualquier momento.
                     </Text>
                 </View>
 
                 {/* Consent Checkboxes */}
                 <View style={styles.consentSection}>
-                    <Text style={[styles.consentTitle, { color: theme.text }]}>
+                    <Text style={[styles.consentTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                         Tu consentimiento
                     </Text>
 
@@ -116,19 +126,19 @@ export default function ConsentScreen() {
                         style={styles.checkboxRow}
                         onPress={() => setAnalyticsConsent(!analyticsConsent)}
                     >
-                        <View style={[
-                            styles.checkbox,
-                            { borderColor: analyticsConsent ? '#4CAF50' : theme.secondaryText },
-                            analyticsConsent && styles.checkboxChecked,
-                        ]}>
-                            {analyticsConsent && <Ionicons name="checkmark" size={16} color="#fff" />}
-                        </View>
+                        <RnImage
+                            source={analyticsConsent
+                                ? require('@/assets/images/doodle-checkbox-checked.png')
+                                : require('@/assets/images/doodle-checkbox-unchecked.png')
+                            }
+                            style={{ width: 26, height: 26, resizeMode: 'contain' }}
+                        />
                         <View style={styles.checkboxTextContainer}>
-                            <Text style={[styles.checkboxLabel, { color: theme.text }]}>
+                            <Text style={[styles.checkboxLabel, { color: '#000000', fontFamily: 'Inter_600SemiBold' }]}>
                                 Acepto participar en el programa de bienestar{' '}
-                                <Text style={{ color: '#FF6B6B' }}>*</Text>
+                                <Text style={{ color: '#000000' }}>*</Text>
                             </Text>
-                            <Text style={[styles.checkboxDescription, { color: theme.secondaryText }]}>
+                            <Text style={[styles.checkboxDescription, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
                                 Tus datos anonimizados ayudan a mejorar el apoyo estudiantil.
                             </Text>
                         </View>
@@ -139,19 +149,19 @@ export default function ConsentScreen() {
                         style={styles.checkboxRow}
                         onPress={() => setContactConsent(!contactConsent)}
                     >
-                        <View style={[
-                            styles.checkbox,
-                            { borderColor: contactConsent ? '#4CAF50' : theme.secondaryText },
-                            contactConsent && styles.checkboxChecked,
-                        ]}>
-                            {contactConsent && <Ionicons name="checkmark" size={16} color="#fff" />}
-                        </View>
+                        <RnImage
+                            source={contactConsent
+                                ? require('@/assets/images/doodle-checkbox-checked.png')
+                                : require('@/assets/images/doodle-checkbox-unchecked.png')
+                            }
+                            style={{ width: 26, height: 26, resizeMode: 'contain' }}
+                        />
                         <View style={styles.checkboxTextContainer}>
-                            <Text style={[styles.checkboxLabel, { color: theme.text }]}>
+                            <Text style={[styles.checkboxLabel, { color: '#000000', fontFamily: 'Inter_600SemiBold' }]}>
                                 Acepto ser contactado si necesito apoyo
                             </Text>
-                            <Text style={[styles.checkboxDescription, { color: theme.secondaryText }]}>
-                                Opcional. Si detectamos que podrías necesitar ayuda, un tutor puede comunicarse contigo.
+                            <Text style={[styles.checkboxDescription, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
+                                Opcional. Un tutor puede comunicarse contigo.
                             </Text>
                         </View>
                     </Pressable>
@@ -159,12 +169,12 @@ export default function ConsentScreen() {
             </ScrollView>
 
             {/* Bottom Buttons */}
-            <View style={[styles.bottomBar, { backgroundColor: theme.background, borderTopColor: theme.borderColor }]}>
+            <View style={[styles.bottomBar, { backgroundColor: '#FBFBFB', borderTopColor: '#EDEDED' }]}>
                 <Pressable
-                    style={[styles.declineButton, { borderColor: theme.borderColor }]}
+                    style={[styles.declineButton, { borderColor: 'transparent' }]}
                     onPress={handleDecline}
                 >
-                    <Text style={[styles.declineText, { color: theme.secondaryText }]}>
+                    <Text style={[styles.declineText, { color: '#828282', fontFamily: 'Inter_600SemiBold' }]}>
                         Ahora no
                     </Text>
                 </Pressable>
@@ -180,6 +190,7 @@ export default function ConsentScreen() {
                     <Text style={styles.acceptText}>
                         {submitting ? 'Guardando...' : 'Continuar'}
                     </Text>
+                    <Ionicons name="arrow-forward" size={18} color="#FFFFFF" />
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -213,15 +224,8 @@ const styles = StyleSheet.create({
     },
     iconContainer: {
         alignItems: 'center',
-        marginTop: 12,
-        marginBottom: 20,
-    },
-    iconCircle: {
-        width: 88,
-        height: 88,
-        borderRadius: 44,
-        justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 24,
     },
     title: {
         fontSize: 26,
@@ -238,11 +242,14 @@ const styles = StyleSheet.create({
     infoCard: {
         flexDirection: 'row',
         alignItems: 'flex-start',
-        padding: 14,
+        padding: 16,
         borderRadius: 12,
         borderWidth: 1,
-        marginBottom: 10,
+        marginBottom: 12,
         gap: 12,
+    },
+    infoIconContainer: {
+        marginTop: 2,
     },
     infoText: {
         flex: 1,
@@ -263,19 +270,7 @@ const styles = StyleSheet.create({
         marginBottom: 18,
         gap: 12,
     },
-    checkbox: {
-        width: 24,
-        height: 24,
-        borderRadius: 6,
-        borderWidth: 2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 2,
-    },
-    checkboxChecked: {
-        backgroundColor: '#4CAF50',
-        borderColor: '#4CAF50',
-    },
+
     checkboxTextContainer: {
         flex: 1,
     },
@@ -310,13 +305,17 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingVertical: 14,
         borderRadius: 12,
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#000000',
         alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 8,
     },
     acceptText: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#fff',
+        fontFamily: 'Inter_600SemiBold',
+        color: '#FFFFFF',
     },
     buttonDisabled: {
         opacity: 0.5,
