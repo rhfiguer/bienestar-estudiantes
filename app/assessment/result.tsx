@@ -106,7 +106,7 @@ export default function ResultScreen() {
     };
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: '#FBFBFB' }]}>
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
@@ -134,14 +134,18 @@ export default function ResultScreen() {
 
                 {/* Score */}
                 <Animated.View style={{ opacity: fadeAnim }}>
-                    <Text style={[styles.title, { color: theme.text }]}>{config.title}</Text>
+                    <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>{config.title}</Text>
 
                     <View style={[styles.scoreBadge, { backgroundColor: isDark ? config.darkBgColor : config.bgColor }]}>
-                        <Text style={[styles.scoreValue, { color: config.color }]}>
-                            {score.toFixed(1)}
+                        <Text style={[styles.scoreValue, { color: config.color, fontFamily: 'EBGaramond_500Medium' }]}>
+                            {score.toFixed(0)}
                         </Text>
-                        <Text style={[styles.scoreLabel, { color: config.color }]}>
-                            / 100 — {config.subtitle}
+                        <Text style={[styles.scoreLabel, { color: config.color, fontFamily: 'RobotoMono_400Regular' }]}>
+                            / 100
+                        </Text>
+                        <View style={[styles.separator, { backgroundColor: config.color }]} />
+                        <Text style={[styles.scoreLabel, { color: config.color, fontFamily: 'RobotoMono_400Regular' }]}>
+                            {config.subtitle}
                         </Text>
                     </View>
 
@@ -149,21 +153,21 @@ export default function ResultScreen() {
                     {overrideReason && (
                         <View style={[styles.overrideCard, { backgroundColor: isDark ? '#3a1a1a' : '#FFEBEE' }]}>
                             <Ionicons name="warning" size={18} color="#F44336" />
-                            <Text style={[styles.overrideText, { color: isDark ? '#FFCDD2' : '#C62828' }]}>
+                            <Text style={[styles.overrideText, { color: isDark ? '#FFCDD2' : '#C62828', fontFamily: 'RobotoMono_400Regular' }]}>
                                 {overrideReason}
                             </Text>
                         </View>
                     )}
 
                     {/* Description */}
-                    <Text style={[styles.description, { color: theme.secondaryText }]}>
+                    <Text style={[styles.description, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                         {config.description}
                     </Text>
 
                     {/* Actions Based on Level */}
                     {level === 'high' && (
                         <View style={styles.actionsSection}>
-                            <Text style={[styles.actionsTitle, { color: theme.text }]}>
+                            <Text style={[styles.actionsTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Opciones de apoyo
                             </Text>
 
@@ -175,10 +179,10 @@ export default function ResultScreen() {
                                 >
                                     <Ionicons name="call" size={24} color="#fff" />
                                     <View style={styles.actionCardText}>
-                                        <Text style={styles.actionCardTitle}>
+                                        <Text style={[styles.actionCardTitle, { fontFamily: 'RobotoMono_400Regular' }]}>
                                             Quiero que me contacten
                                         </Text>
-                                        <Text style={styles.actionCardDescription}>
+                                        <Text style={[styles.actionCardDescription, { fontFamily: 'RobotoMono_400Regular' }]}>
                                             Un tutor se comunicará contigo de manera confidencial
                                         </Text>
                                     </View>
@@ -190,8 +194,8 @@ export default function ResultScreen() {
                                 <View style={[styles.actionCard, { backgroundColor: '#4CAF50' }]}>
                                     <Ionicons name="checkmark-circle" size={24} color="#fff" />
                                     <View style={styles.actionCardText}>
-                                        <Text style={styles.actionCardTitle}>Contacto solicitado</Text>
-                                        <Text style={styles.actionCardDescription}>
+                                        <Text style={[styles.actionCardTitle, { fontFamily: 'RobotoMono_400Regular' }]}>Contacto solicitado</Text>
+                                        <Text style={[styles.actionCardDescription, { fontFamily: 'RobotoMono_400Regular' }]}>
                                             Un tutor se comunicará contigo pronto
                                         </Text>
                                     </View>
@@ -199,19 +203,19 @@ export default function ResultScreen() {
                             )}
 
                             <Pressable
-                                style={[styles.resourceCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
+                                style={[styles.resourceCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}
                                 onPress={() => router.push('/(tabs)')}
                             >
                                 <Ionicons name="headset" size={24} color="#2196F3" />
                                 <View style={styles.actionCardText}>
-                                    <Text style={[styles.resourceTitle, { color: theme.text }]}>
+                                    <Text style={[styles.resourceTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                         Recursos de apoyo
                                     </Text>
-                                    <Text style={[styles.resourceDescription, { color: theme.secondaryText }]}>
+                                    <Text style={[styles.resourceDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                                         Explora contenido de bienestar y herramientas de manejo de estrés
                                     </Text>
                                 </View>
-                                <Ionicons name="chevron-forward" size={20} color={theme.secondaryText} />
+                                <Ionicons name="chevron-forward" size={20} color="#828282" />
                             </Pressable>
                         </View>
                     )}
@@ -219,19 +223,19 @@ export default function ResultScreen() {
                     {level === 'medium' && (
                         <View style={styles.actionsSection}>
                             <Pressable
-                                style={[styles.resourceCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
+                                style={[styles.resourceCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}
                                 onPress={() => router.push('/(tabs)')}
                             >
                                 <Ionicons name="library" size={24} color="#FF9800" />
                                 <View style={styles.actionCardText}>
-                                    <Text style={[styles.resourceTitle, { color: theme.text }]}>
+                                    <Text style={[styles.resourceTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                         Recursos recomendados
                                     </Text>
-                                    <Text style={[styles.resourceDescription, { color: theme.secondaryText }]}>
+                                    <Text style={[styles.resourceDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                                         Contenido seleccionado para ayudarte con las áreas que identificamos
                                     </Text>
                                 </View>
-                                <Ionicons name="chevron-forward" size={20} color={theme.secondaryText} />
+                                <Ionicons name="chevron-forward" size={20} color="#828282" />
                             </Pressable>
                         </View>
                     )}
@@ -239,17 +243,20 @@ export default function ResultScreen() {
             </ScrollView>
 
             {/* Bottom Buttons */}
-            <View style={[styles.bottomBar, { borderTopColor: theme.borderColor }]}>
+            <View style={[styles.bottomBar, { borderTopColor: '#EDEDED' }]}>
                 <Pressable
-                    style={[styles.historyButton, { borderColor: theme.borderColor }]}
+                    style={[styles.historyButton, { borderColor: '#EDEDED', backgroundColor: '#FFFFFF' }]}
                     onPress={handleViewHistory}
                 >
-                    <Ionicons name="time" size={20} color={theme.text} />
-                    <Text style={[styles.historyText, { color: theme.text }]}>Historial</Text>
+                    <Ionicons name="time" size={20} color="#000000" />
+                    <Text style={[styles.historyText, { color: '#000000', fontFamily: 'RobotoMono_400Regular' }]}>Historial</Text>
                 </Pressable>
 
-                <Pressable style={[styles.doneButton, { backgroundColor: config.color }]} onPress={handleDone}>
-                    <Text style={styles.doneText}>Volver al inicio</Text>
+                <Pressable
+                    style={[styles.doneButton, { backgroundColor: '#000000' }]}
+                    onPress={handleDone}
+                >
+                    <Text style={[styles.doneText, { fontFamily: 'RobotoMono_400Regular' }]}>Volver al inicio</Text>
                 </Pressable>
             </View>
         </SafeAreaView>
@@ -277,29 +284,34 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 28,
-        fontWeight: 'bold',
+        fontSize: 32,
+        fontWeight: '500',
         textAlign: 'center',
-        marginBottom: 16,
+        marginBottom: 20,
     },
     scoreBadge: {
         flexDirection: 'row',
-        alignItems: 'baseline',
+        alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 16,
+        paddingHorizontal: 20,
+        borderRadius: 30,
         alignSelf: 'center',
-        marginBottom: 16,
+        marginBottom: 24,
+        gap: 8,
     },
     scoreValue: {
-        fontSize: 36,
-        fontWeight: '800',
+        fontSize: 28,
+        fontWeight: '600',
     },
     scoreLabel: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '600',
-        marginLeft: 6,
+    },
+    separator: {
+        width: 1,
+        height: 16,
+        opacity: 0.5,
     },
     overrideCard: {
         flexDirection: 'row',
@@ -310,23 +322,23 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     overrideText: {
-        fontSize: 14,
+        fontSize: 13,
         flex: 1,
         fontWeight: '500',
     },
     description: {
-        fontSize: 16,
+        fontSize: 15,
         lineHeight: 24,
         textAlign: 'center',
-        marginBottom: 24,
+        marginBottom: 32,
     },
     actionsSection: {
-        gap: 12,
+        gap: 16,
     },
     actionsTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 4,
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 8,
     },
     actionCard: {
         flexDirection: 'row',
@@ -339,13 +351,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     actionCardTitle: {
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '700',
         color: '#fff',
         marginBottom: 2,
     },
     actionCardDescription: {
-        fontSize: 13,
+        fontSize: 12,
         color: 'rgba(255,255,255,0.85)',
     },
     resourceCard: {
@@ -374,8 +386,8 @@ const styles = StyleSheet.create({
     historyButton: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 6,
-        paddingVertical: 14,
+        gap: 8,
+        paddingVertical: 16,
         paddingHorizontal: 20,
         borderRadius: 12,
         borderWidth: 1,
@@ -387,12 +399,13 @@ const styles = StyleSheet.create({
     doneButton: {
         flex: 1,
         alignItems: 'center',
-        paddingVertical: 14,
+        justifyContent: 'center',
+        paddingVertical: 16,
         borderRadius: 12,
     },
     doneText: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
+        color: '#FFFFFF',
     },
 });

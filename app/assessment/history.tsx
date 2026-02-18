@@ -62,7 +62,7 @@ export default function HistoryScreen() {
         // Simple trend indicator compared to previous
         const previousItem = index < history.length - 1 ? history[index + 1] : null;
         let trendIcon: keyof typeof Ionicons.glyphMap | null = null;
-        let trendColor = theme.secondaryText;
+        let trendColor = '#828282';
         if (previousItem) {
             if (item.riskScore < previousItem.riskScore) {
                 trendIcon = 'trending-down';
@@ -72,24 +72,24 @@ export default function HistoryScreen() {
                 trendColor = '#F44336'; // Worsening
             } else {
                 trendIcon = 'remove';
-                trendColor = theme.secondaryText;
+                trendColor = '#828282';
             }
         }
 
         return (
-            <View style={[styles.historyCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
+            <View style={[styles.historyCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                 {/* Left color bar */}
                 <View style={[styles.colorBar, { backgroundColor: color }]} />
 
                 <View style={styles.cardContent}>
                     {/* Top row: date + badge */}
                     <View style={styles.cardHeader}>
-                        <Text style={[styles.dateText, { color: theme.secondaryText }]}>
+                        <Text style={[styles.dateText, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                             {formatDate(item.completedAt)}
                         </Text>
                         <View style={[styles.riskBadge, { backgroundColor: color + '20' }]}>
                             <Ionicons name={icon} size={14} color={color} />
-                            <Text style={[styles.riskBadgeText, { color }]}>
+                            <Text style={[styles.riskBadgeText, { color, fontFamily: 'RobotoMono_400Regular' }]}>
                                 {label}
                             </Text>
                         </View>
@@ -97,16 +97,16 @@ export default function HistoryScreen() {
 
                     {/* Score row */}
                     <View style={styles.scoreRow}>
-                        <Text style={[styles.scoreText, { color: theme.text }]}>
-                            {item.riskScore.toFixed(1)}
+                        <Text style={[styles.scoreText, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
+                            {item.riskScore.toFixed(0)}
                         </Text>
-                        <Text style={[styles.scoreMax, { color: theme.secondaryText }]}>/ 100</Text>
+                        <Text style={[styles.scoreMax, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>/ 100</Text>
                         {trendIcon && (
                             <View style={styles.trendContainer}>
-                                <Ionicons name={trendIcon} size={18} color={trendColor} />
+                                <Ionicons name={trendIcon} size={16} color={trendColor} />
                                 {previousItem && (
-                                    <Text style={[styles.trendText, { color: trendColor }]}>
-                                        {Math.abs(item.riskScore - previousItem.riskScore).toFixed(1)}
+                                    <Text style={[styles.trendText, { color: trendColor, fontFamily: 'RobotoMono_400Regular' }]}>
+                                        {Math.abs(item.riskScore - previousItem.riskScore).toFixed(0)}
                                     </Text>
                                 )}
                             </View>
@@ -117,14 +117,14 @@ export default function HistoryScreen() {
                     {item.overrideReason && (
                         <View style={styles.overrideRow}>
                             <Ionicons name="warning" size={14} color="#FF9800" />
-                            <Text style={[styles.overrideText, { color: '#FF9800' }]} numberOfLines={1}>
+                            <Text style={[styles.overrideText, { color: '#FF9800', fontFamily: 'RobotoMono_400Regular' }]} numberOfLines={1}>
                                 {item.overrideReason}
                             </Text>
                         </View>
                     )}
 
                     {/* Instrument name */}
-                    <Text style={[styles.instrumentText, { color: theme.secondaryText }]}>
+                    <Text style={[styles.instrumentText, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                         {item.instrumentId === 'pulse_v1' ? 'Cuestionario de Pulso' : item.instrumentId}
                     </Text>
                 </View>
@@ -134,47 +134,47 @@ export default function HistoryScreen() {
 
     const renderEmpty = () => (
         <View style={styles.emptyContainer}>
-            <Ionicons name="clipboard-outline" size={64} color={theme.secondaryText} />
-            <Text style={[styles.emptyTitle, { color: theme.text }]}>
+            <Ionicons name="clipboard-outline" size={64} color="#EDF2F7" />
+            <Text style={[styles.emptyTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                 Sin evaluaciones todavía
             </Text>
-            <Text style={[styles.emptyDescription, { color: theme.secondaryText }]}>
+            <Text style={[styles.emptyDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                 Completa tu primer check-in de bienestar para ver tu historial aquí.
             </Text>
         </View>
     );
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: '#FBFBFB' }]}>
             {/* Header */}
             <View style={styles.header}>
                 <Pressable onPress={() => router.back()} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color={theme.text} />
+                    <Ionicons name="arrow-back" size={24} color="#000000" />
                 </Pressable>
-                <Text style={[styles.headerTitle, { color: theme.text }]}>Mi Historial</Text>
+                <Text style={[styles.headerTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>Mi Historial</Text>
                 <View style={{ width: 24 }} />
             </View>
 
             {/* Summary stats */}
             {history.length > 0 && (
                 <View style={styles.statsRow}>
-                    <View style={[styles.statCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                        <Text style={[styles.statValue, { color: theme.text }]}>{history.length}</Text>
-                        <Text style={[styles.statLabel, { color: theme.secondaryText }]}>Evaluaciones</Text>
+                    <View style={[styles.statCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                        <Text style={[styles.statValue, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>{history.length}</Text>
+                        <Text style={[styles.statLabel, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>Evaluaciones</Text>
                     </View>
-                    <View style={[styles.statCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                        <Text style={[styles.statValue, { color: RISK_COLORS[history[0]?.riskLevel || 'low'] }]}>
-                            {history[0]?.riskScore.toFixed(1) || '—'}
+                    <View style={[styles.statCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                        <Text style={[styles.statValue, { color: RISK_COLORS[history[0]?.riskLevel || 'low'], fontFamily: 'EBGaramond_500Medium' }]}>
+                            {history[0]?.riskScore.toFixed(0) || '—'}
                         </Text>
-                        <Text style={[styles.statLabel, { color: theme.secondaryText }]}>Último score</Text>
+                        <Text style={[styles.statLabel, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>Último score</Text>
                     </View>
-                    <View style={[styles.statCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                        <Text style={[styles.statValue, { color: theme.text }]}>
+                    <View style={[styles.statCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                        <Text style={[styles.statValue, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                             {history.length > 0
-                                ? (history.reduce((sum, r) => sum + r.riskScore, 0) / history.length).toFixed(1)
+                                ? (history.reduce((sum, r) => sum + r.riskScore, 0) / history.length).toFixed(0)
                                 : '—'}
                         </Text>
-                        <Text style={[styles.statLabel, { color: theme.secondaryText }]}>Promedio</Text>
+                        <Text style={[styles.statLabel, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>Promedio</Text>
                     </View>
                 </View>
             )}
@@ -182,7 +182,7 @@ export default function HistoryScreen() {
             {/* History List */}
             {historyLoading ? (
                 <View style={styles.loadingContainer}>
-                    <ActivityIndicator size="large" color={theme.tint} />
+                    <ActivityIndicator size="large" color="#000000" />
                 </View>
             ) : (
                 <FlatList
@@ -213,14 +213,14 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     headerTitle: {
-        fontSize: 18,
-        fontWeight: '700',
+        fontSize: 20,
+        fontWeight: '600',
     },
     statsRow: {
         flexDirection: 'row',
         paddingHorizontal: 16,
         gap: 10,
-        marginBottom: 16,
+        marginBottom: 20,
     },
     statCard: {
         flex: 1,
@@ -230,13 +230,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     statValue: {
-        fontSize: 22,
-        fontWeight: '800',
+        fontSize: 24,
+        fontWeight: '600',
     },
     statLabel: {
         fontSize: 11,
-        marginTop: 2,
-        fontWeight: '500',
+        marginTop: 4,
     },
     listContent: {
         paddingHorizontal: 16,
@@ -244,27 +243,26 @@ const styles = StyleSheet.create({
     },
     historyCard: {
         flexDirection: 'row',
-        borderRadius: 14,
+        borderRadius: 16,
         borderWidth: 1,
-        marginBottom: 10,
+        marginBottom: 12,
         overflow: 'hidden',
     },
     colorBar: {
-        width: 4,
+        width: 6,
     },
     cardContent: {
         flex: 1,
-        padding: 14,
+        padding: 16,
     },
     cardHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 8,
+        marginBottom: 10,
     },
     dateText: {
-        fontSize: 13,
-        fontWeight: '500',
+        fontSize: 12,
     },
     riskBadge: {
         flexDirection: 'row',
@@ -281,40 +279,38 @@ const styles = StyleSheet.create({
     scoreRow: {
         flexDirection: 'row',
         alignItems: 'baseline',
-        gap: 4,
+        gap: 6,
     },
     scoreText: {
-        fontSize: 28,
-        fontWeight: '800',
+        fontSize: 32,
+        fontWeight: '600',
     },
     scoreMax: {
         fontSize: 14,
-        fontWeight: '500',
     },
     trendContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 2,
+        gap: 4,
         marginLeft: 'auto',
     },
     trendText: {
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: '600',
     },
     overrideRow: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 6,
-        marginTop: 6,
+        marginTop: 8,
     },
     overrideText: {
         fontSize: 12,
-        fontWeight: '500',
         flex: 1,
     },
     instrumentText: {
         fontSize: 12,
-        marginTop: 6,
+        marginTop: 8,
     },
     emptyContainer: {
         flex: 1,
@@ -325,13 +321,13 @@ const styles = StyleSheet.create({
     },
     emptyTitle: {
         fontSize: 20,
-        fontWeight: '700',
-        marginTop: 16,
+        fontWeight: '600',
+        marginTop: 20,
     },
     emptyDescription: {
-        fontSize: 15,
+        fontSize: 14,
         textAlign: 'center',
-        marginTop: 8,
+        marginTop: 12,
         lineHeight: 22,
     },
     loadingContainer: {

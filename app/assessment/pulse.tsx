@@ -1,6 +1,6 @@
 import { useColorScheme } from '@/components/useColorScheme';
 import { Colors } from '@/constants/Colors';
-import { PULSE_INSTRUMENT, type AssessmentResponse, type InstrumentItem } from '@/constants/assessmentTypes';
+import { PULSE_INSTRUMENT, type AssessmentResponse } from '@/constants/assessmentTypes';
 import { useAssessment } from '@/context/AssessmentContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -82,24 +82,24 @@ export default function PulseScreen() {
     const selectedValue = responses[currentItem.key];
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: '#FBFBFB' }]}>
             {/* Header */}
             <View style={styles.header}>
                 <Pressable onPress={handleBack} style={styles.backButton}>
-                    <Ionicons name="arrow-back" size={24} color={theme.text} />
+                    <Ionicons name="arrow-back" size={24} color="#000000" />
                 </Pressable>
-                <Text style={[styles.headerTitle, { color: theme.secondaryText }]}>
+                <Text style={[styles.headerTitle, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                     {currentStep + 1} de {totalSteps}
                 </Text>
                 <View style={{ width: 24 }} />
             </View>
 
             {/* Progress Bar */}
-            <View style={[styles.progressTrack, { backgroundColor: theme.borderColor }]}>
+            <View style={[styles.progressTrack, { backgroundColor: '#EDEDED' }]}>
                 <Animated.View
                     style={[
                         styles.progressFill,
-                        { width: `${progress * 100}%` },
+                        { width: `${progress * 100}%`, backgroundColor: '#000000' },
                     ]}
                 />
             </View>
@@ -111,14 +111,14 @@ export default function PulseScreen() {
                     showsVerticalScrollIndicator={false}
                 >
                     {/* Dimension Badge */}
-                    <View style={[styles.dimensionBadge, { backgroundColor: isDark ? '#1a2a3a' : '#E3F2FD' }]}>
-                        <Text style={[styles.dimensionText, { color: '#2196F3' }]}>
+                    <View style={[styles.dimensionBadge, { backgroundColor: '#F5F5F5' }]}>
+                        <Text style={[styles.dimensionText, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                             {currentItem.dimension}
                         </Text>
                     </View>
 
                     {/* Question Text */}
-                    <Text style={[styles.questionText, { color: theme.text }]}>
+                    <Text style={[styles.questionText, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                         {currentItem.question}
                     </Text>
 
@@ -138,11 +138,11 @@ export default function PulseScreen() {
                                         styles.optionButton,
                                         {
                                             backgroundColor: isSelected
-                                                ? getColorForValue(value, currentItem)
-                                                : theme.cardBackground,
+                                                ? '#000000'
+                                                : '#FFFFFF',
                                             borderColor: isSelected
-                                                ? getColorForValue(value, currentItem)
-                                                : theme.borderColor,
+                                                ? '#000000'
+                                                : '#EDEDED',
                                         },
                                     ]}
                                     onPress={() => handleSelect(value)}
@@ -151,25 +151,25 @@ export default function PulseScreen() {
                                         <View style={[
                                             styles.optionNumber,
                                             {
-                                                backgroundColor: isSelected ? 'rgba(255,255,255,0.2)' : (isDark ? '#2A2A2A' : '#F5F5F5'),
+                                                backgroundColor: isSelected ? 'rgba(255,255,255,0.2)' : '#F5F5F5',
                                             },
                                         ]}>
                                             <Text style={[
                                                 styles.optionNumberText,
-                                                { color: isSelected ? '#fff' : theme.secondaryText },
+                                                { color: isSelected ? '#FFFFFF' : '#828282', fontFamily: 'RobotoMono_400Regular' },
                                             ]}>
                                                 {value}
                                             </Text>
                                         </View>
                                         <Text style={[
                                             styles.optionLabel,
-                                            { color: isSelected ? '#fff' : theme.text },
+                                            { color: isSelected ? '#FFFFFF' : '#000000', fontFamily: 'RobotoMono_400Regular' },
                                         ]}>
                                             {label}
                                         </Text>
                                     </View>
                                     {isSelected && (
-                                        <Ionicons name="checkmark-circle" size={22} color="#fff" />
+                                        <Ionicons name="checkmark-circle" size={22} color="#FFFFFF" />
                                     )}
                                 </Pressable>
                             );
@@ -180,38 +180,21 @@ export default function PulseScreen() {
 
             {/* Submit Button (only on last step) */}
             {isLastStep && allAnswered && (
-                <View style={[styles.bottomBar, { borderTopColor: theme.borderColor }]}>
+                <View style={[styles.bottomBar, { borderTopColor: '#EDEDED' }]}>
                     <Pressable
                         style={[styles.submitButton, submitting && styles.buttonDisabled]}
                         onPress={handleSubmit}
                         disabled={submitting}
                     >
-                        <Text style={styles.submitText}>
+                        <Text style={[styles.submitText, { fontFamily: 'RobotoMono_400Regular' }]}>
                             {submitting ? 'Calculando...' : 'Ver mi resultado'}
                         </Text>
-                        {!submitting && <Ionicons name="arrow-forward" size={20} color="#fff" />}
+                        {!submitting && <Ionicons name="arrow-forward" size={20} color="#FFFFFF" />}
                     </Pressable>
                 </View>
             )}
         </SafeAreaView>
     );
-}
-
-/**
- * Returns a color for the option based on the value and item direction.
- * For "negative" items (high = bad): green → red
- * For "positive" items (high = good): red → green
- */
-function getColorForValue(value: number, item: InstrumentItem): string {
-    const range = item.scaleMax - item.scaleMin;
-    const normalized = (value - item.scaleMin) / range; // 0 to 1
-
-    const colors = ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336'];
-    const index = item.direction === 'negative'
-        ? Math.round(normalized * (colors.length - 1))
-        : Math.round((1 - normalized) * (colors.length - 1));
-
-    return colors[index];
 }
 
 const styles = StyleSheet.create({
@@ -229,19 +212,18 @@ const styles = StyleSheet.create({
         padding: 4,
     },
     headerTitle: {
-        fontSize: 15,
-        fontWeight: '600',
+        fontSize: 14,
+        fontWeight: '500',
     },
     progressTrack: {
-        height: 4,
+        height: 2,
         marginHorizontal: 16,
-        borderRadius: 2,
+        borderRadius: 1,
         overflow: 'hidden',
     },
     progressFill: {
         height: '100%',
-        backgroundColor: '#4CAF50',
-        borderRadius: 2,
+        borderRadius: 1,
     },
     questionContainer: {
         flex: 1,
@@ -259,25 +241,24 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     dimensionText: {
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: '600',
     },
     questionText: {
-        fontSize: 24,
-        fontWeight: '700',
-        lineHeight: 32,
-        marginBottom: 32,
+        fontSize: 28,
+        lineHeight: 36,
+        marginBottom: 40,
     },
     optionsContainer: {
-        gap: 10,
+        gap: 12,
     },
     optionButton: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 16,
-        borderRadius: 14,
-        borderWidth: 1.5,
+        borderRadius: 12,
+        borderWidth: 1,
     },
     optionContent: {
         flexDirection: 'row',
@@ -286,18 +267,18 @@ const styles = StyleSheet.create({
         gap: 14,
     },
     optionNumber: {
-        width: 32,
-        height: 32,
-        borderRadius: 16,
+        width: 28,
+        height: 28,
+        borderRadius: 14,
         justifyContent: 'center',
         alignItems: 'center',
     },
     optionNumberText: {
-        fontSize: 14,
-        fontWeight: '700',
+        fontSize: 13,
+        fontWeight: '600',
     },
     optionLabel: {
-        fontSize: 16,
+        fontSize: 15,
         fontWeight: '500',
         flex: 1,
     },
@@ -310,15 +291,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 8,
-        backgroundColor: '#4CAF50',
+        gap: 10,
+        backgroundColor: '#000000',
         paddingVertical: 16,
-        borderRadius: 14,
+        borderRadius: 12,
     },
     submitText: {
-        fontSize: 17,
-        fontWeight: '700',
-        color: '#fff',
+        fontSize: 15,
+        fontWeight: '600',
+        color: '#FFFFFF',
     },
     buttonDisabled: {
         opacity: 0.6,
