@@ -114,7 +114,7 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="assessment/consent" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="assessment/consent" options={{ headerShown: false }} />
         <Stack.Screen name="assessment/pulse" options={{ headerShown: false }} />
         <Stack.Screen name="assessment/result" options={{ headerShown: false }} />
         <Stack.Screen name="assessment/history" options={{ headerShown: false }} />
