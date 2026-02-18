@@ -60,8 +60,8 @@ export default function BienestarScreen() {
             >
                 {/* Header */}
                 <View style={styles.header}>
-                    <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>Bienestar</Text>
-                    <Text style={[styles.subtitle, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
+                    <Text style={[styles.title, { color: '#000000' }]}>Bienestar</Text>
+                    <Text style={[styles.subtitle, { color: '#828282' }]}>
                         Tu espacio de autocuidado
                     </Text>
                 </View>
@@ -81,7 +81,7 @@ export default function BienestarScreen() {
                         </View>
 
                         <View style={styles.checkinTextContainer}>
-                            <Text style={[styles.checkinTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
+                            <Text style={[styles.checkinTitle, { color: '#000000' }]}>
                                 Check-in de Bienestar
                             </Text>
                             <Text style={[styles.checkinDescription, { color: '#828282' }]}>
@@ -99,7 +99,7 @@ export default function BienestarScreen() {
                 {latestAssessment && latestConfig && (
                     <View style={[styles.lastResultCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                         <View style={styles.lastResultHeader}>
-                            <Text style={[styles.sectionTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
+                            <Text style={[styles.sectionTitle, { color: '#000000' }]}>
                                 Tu último resultado
                             </Text>
                             <Pressable onPress={() => router.push('/assessment/history' as any)}>
@@ -141,7 +141,7 @@ export default function BienestarScreen() {
                 )}
 
                 {/* Quick Actions */}
-                <Text style={[styles.sectionTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium', marginTop: 32 }]}>
+                <Text style={[styles.sectionTitle, { color: '#000000', marginTop: 32 }]}>
                     Herramientas
                 </Text>
 
@@ -192,10 +192,9 @@ export default function BienestarScreen() {
                     </Pressable>
                 </View>
 
-                {/* Info Card */}
                 <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                     <Ionicons name="information-circle-outline" size={20} color="#828282" />
-                    <Text style={[styles.infoText, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
+                    <Text style={[styles.infoText, { color: '#828282' }]}>
                         Tu bienestar importa. Este cuestionario se recomienda cada 2 semanas y te ayuda a detectar
                         necesidades de apoyo de manera temprana.
                     </Text>
@@ -248,12 +247,12 @@ const styles = StyleSheet.create({
     },
     checkinTitle: {
         fontSize: 22,
+        fontWeight: 'bold',
         textAlign: 'center',
     },
     checkinDescription: {
         fontSize: 14,
         marginTop: 4,
-        fontFamily: 'Inter_400Regular',
     },
     startBadge: {
         flexDirection: 'row',
@@ -266,7 +265,6 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 14,
         fontWeight: '600',
-        fontFamily: 'Inter_600SemiBold',
     },
     lastResultCard: {
         marginHorizontal: 16,
@@ -347,7 +345,6 @@ const styles = StyleSheet.create({
     quickActionLabel: {
         fontSize: 14,
         fontWeight: '500',
-        fontFamily: 'Inter_400Regular',
     },
     infoCard: {
         flexDirection: 'row',
