@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import {
     Pressable,
+    Image as RnImage,
     ScrollView,
     StyleSheet,
     Text,
@@ -52,52 +53,57 @@ export default function BienestarScreen() {
     };
 
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: '#FBFBFB' }]}>
             <ScrollView
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
             >
                 {/* Header */}
                 <View style={styles.header}>
-                    <Text style={[styles.title, { color: theme.text }]}>Bienestar</Text>
-                    <Text style={[styles.subtitle, { color: theme.secondaryText }]}>
+                    <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>Bienestar</Text>
+                    <Text style={[styles.subtitle, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
                         Tu espacio de autocuidado
                     </Text>
                 </View>
 
                 {/* Main CTA — Check-in Button */}
+                {/* Main CTA — Check-in Button */}
                 <Pressable
-                    style={[styles.checkinCard, { backgroundColor: isDark ? '#1a2a3a' : '#E3F2FD' }]}
+                    style={[styles.checkinCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED', borderWidth: 1 }]}
                     onPress={handleStartCheckin}
                 >
                     <View style={styles.checkinContent}>
-                        <View style={[styles.checkinIcon, { backgroundColor: isDark ? '#2a3a4a' : '#BBDEFB' }]}>
-                            <Ionicons name="pulse" size={28} color="#2196F3" />
+                        <View style={styles.checkinIconContainer}>
+                            <RnImage
+                                source={require('@/assets/images/doodle-checkin.png')}
+                                style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                            />
                         </View>
+
                         <View style={styles.checkinText}>
-                            <Text style={[styles.checkinTitle, { color: theme.text }]}>
+                            <Text style={[styles.checkinTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Check-in de Bienestar
                             </Text>
-                            <Text style={[styles.checkinDescription, { color: theme.secondaryText }]}>
+                            <Text style={[styles.checkinDescription, { color: '#828282' }]}>
                                 5 preguntas · 1 minuto
                             </Text>
                         </View>
-                        <View style={[styles.startBadge]}>
+                        <View style={styles.startBadge}>
                             <Text style={styles.startText}>Iniciar</Text>
-                            <Ionicons name="arrow-forward" size={16} color="#fff" />
+                            <Ionicons name="arrow-forward" size={16} color="#000000" />
                         </View>
                     </View>
                 </Pressable>
 
                 {/* Last Result Card */}
                 {latestAssessment && latestConfig && (
-                    <View style={[styles.lastResultCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
+                    <View style={[styles.lastResultCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                         <View style={styles.lastResultHeader}>
-                            <Text style={[styles.sectionTitle, { color: theme.text }]}>
+                            <Text style={[styles.sectionTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Tu último resultado
                             </Text>
                             <Pressable onPress={() => router.push('/assessment/history' as any)}>
-                                <Text style={[styles.seeAllText, { color: '#2196F3' }]}>
+                                <Text style={[styles.seeAllText, { color: '#828282' }]}>
                                     Ver historial
                                 </Text>
                             </Pressable>
@@ -135,52 +141,61 @@ export default function BienestarScreen() {
                 )}
 
                 {/* Quick Actions */}
-                <Text style={[styles.sectionTitle, { color: theme.text, marginTop: 24 }]}>
+                <Text style={[styles.sectionTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium', marginTop: 32 }]}>
                     Herramientas
                 </Text>
 
                 <View style={styles.quickActions}>
                     <Pressable
-                        style={[styles.quickAction, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
+                        style={[styles.quickAction, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}
                         onPress={() => router.push('/assessment/history' as any)}
                     >
-                        <View style={[styles.quickActionIcon, { backgroundColor: isDark ? '#1a2a3a' : '#E3F2FD' }]}>
-                            <Ionicons name="time" size={24} color="#2196F3" />
+                        <View style={styles.quickActionIconContainer}>
+                            <RnImage
+                                source={require('@/assets/images/doodle-history.png')}
+                                style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                            />
                         </View>
-                        <Text style={[styles.quickActionLabel, { color: theme.text }]}>
+                        <Text style={[styles.quickActionLabel, { color: '#000000' }]}>
                             Historial
                         </Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.quickAction, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
+                        style={[styles.quickAction, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}
                         onPress={() => router.push('/(tabs)')}
                     >
-                        <View style={[styles.quickActionIcon, { backgroundColor: isDark ? '#1a3a2a' : '#E8F5E9' }]}>
-                            <Ionicons name="headset" size={24} color="#4CAF50" />
+                        <View style={styles.quickActionIconContainer}>
+                            <RnImage
+                                source={require('@/assets/images/doodle-resources.png')}
+                                style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                            />
                         </View>
-                        <Text style={[styles.quickActionLabel, { color: theme.text }]}>
+                        <Text style={[styles.quickActionLabel, { color: '#000000' }]}>
                             Recursos
                         </Text>
                     </Pressable>
 
                     <Pressable
-                        style={[styles.quickAction, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}
+                        style={[styles.quickAction, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}
                         onPress={() => router.push('/(tabs)/profile')}
                     >
-                        <View style={[styles.quickActionIcon, { backgroundColor: isDark ? '#3a2a1a' : '#FFF3E0' }]}>
-                            <Ionicons name="shield-checkmark" size={24} color="#FF9800" />
+                        <View style={styles.quickActionIconContainer}>
+                            <RnImage
+                                source={require('@/assets/images/doodle-privacy.png')}
+                                style={{ width: 40, height: 40, resizeMode: 'contain' }}
+                            />
                         </View>
-                        <Text style={[styles.quickActionLabel, { color: theme.text }]}>
+                        <Text style={[styles.quickActionLabel, { color: '#000000' }]}>
                             Privacidad
                         </Text>
                     </Pressable>
                 </View>
 
                 {/* Info Card */}
-                <View style={[styles.infoCard, { backgroundColor: theme.cardBackground, borderColor: theme.borderColor }]}>
-                    <Ionicons name="information-circle" size={20} color="#2196F3" />
-                    <Text style={[styles.infoText, { color: theme.secondaryText }]}>
+                <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
+                    <Ionicons name="information-circle-outline" size={20} color="#828282" />
+                    <Text style={[styles.infoText, { color: '#828282', fontFamily: 'Inter_400Regular' }]}>
                         Tu bienestar importa. Este cuestionario se recomienda cada 2 semanas y te ayuda a detectar
                         necesidades de apoyo de manera temprana.
                     </Text>
@@ -211,20 +226,19 @@ const styles = StyleSheet.create({
         marginTop: 4,
     },
     checkinCard: {
-        marginHorizontal: 16,
+        marginHorizontal: 20,
         borderRadius: 16,
-        padding: 20,
-        marginBottom: 20,
+        padding: 24,
+        marginBottom: 24,
     },
     checkinContent: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 14,
+        gap: 16,
     },
-    checkinIcon: {
-        width: 52,
-        height: 52,
-        borderRadius: 26,
+    checkinIconContainer: {
+        width: 48,
+        height: 48,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -232,26 +246,25 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     checkinTitle: {
-        fontSize: 17,
-        fontWeight: '700',
+        fontSize: 18,
     },
     checkinDescription: {
-        fontSize: 13,
-        marginTop: 2,
+        fontSize: 14,
+        marginTop: 4,
+        fontFamily: 'Inter_400Regular',
     },
     startBadge: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 4,
-        backgroundColor: '#2196F3',
-        paddingHorizontal: 14,
-        paddingVertical: 8,
-        borderRadius: 20,
+        gap: 6,
+        paddingHorizontal: 8,
+        paddingVertical: 6,
     },
     startText: {
-        color: '#fff',
+        color: '#000000',
         fontSize: 14,
-        fontWeight: '700',
+        fontWeight: '600',
+        fontFamily: 'Inter_600SemiBold',
     },
     lastResultCard: {
         marginHorizontal: 16,
@@ -321,20 +334,18 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         padding: 14,
-        borderRadius: 14,
-        borderWidth: 1,
         gap: 8,
     },
-    quickActionIcon: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
+    quickActionIconContainer: {
+        height: 50,
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 8,
     },
     quickActionLabel: {
-        fontSize: 13,
-        fontWeight: '600',
+        fontSize: 14,
+        fontWeight: '500',
+        fontFamily: 'Inter_400Regular',
     },
     infoCard: {
         flexDirection: 'row',
