@@ -3,12 +3,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
+    Alert,
     Pressable,
     Image as RnImage,
     ScrollView,
     StyleSheet,
     Text,
-    View,
+    View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -26,14 +27,19 @@ export default function ConsentScreen() {
         if (!canProceed) return;
         setSubmitting(true);
         try {
+            console.log('Saving consent...');
             await saveConsent({
                 analytics: analyticsConsent,
                 contact: contactConsent,
                 timestamp: new Date(),
             });
-            router.replace('/assessment/pulse' as any);
-        } catch (error) {
+            console.log('Consent saved, navigating to pulse...');
+            // Use push instead of replace to ensure we push onto the stack correctly
+            // even if we are in a modal
+            router.push('/assessment/pulse' as any);
+        } catch (error: any) {
             console.error('Error saving consent:', error);
+            Alert.alert('Error', 'No se pudo guardar tu consentimiento. ' + (error.message || 'Inténtalo de nuevo.'));
         } finally {
             setSubmitting(false);
         }
