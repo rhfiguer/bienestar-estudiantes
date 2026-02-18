@@ -50,7 +50,7 @@ export default function ConsentScreen() {
                 <Pressable onPress={() => router.back()} style={styles.backButton}>
                     <Ionicons name="arrow-back" size={24} color="#000000" />
                 </Pressable>
-                <Text style={[styles.headerTitle, { color: '#000000' }]}>
+                <Text style={[styles.headerTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                     Tu Privacidad
                 </Text>
                 <View style={{ width: 24 }} />
@@ -69,11 +69,11 @@ export default function ConsentScreen() {
                     />
                 </View>
 
-                <Text style={[styles.title, { color: '#000000' }]}>
+                <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                     Antes de comenzar
                 </Text>
 
-                <Text style={[styles.description, { color: '#828282' }]}>
+                <Text style={[styles.description, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                     Este cuestionario forma parte de nuestro sistema de bienestar estudiantil. Tus respuestas
                     nos ayudan a detectar si necesitas apoyo adicional.
                 </Text>
@@ -86,7 +86,7 @@ export default function ConsentScreen() {
                             style={{ width: 24, height: 24, resizeMode: 'contain' }}
                         />
                     </View>
-                    <Text style={[styles.infoText, { color: '#000000' }]}>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'RobotoMono_400Regular' }]}>
                         Tus respuestas individuales son privadas y están cifradas.
                     </Text>
                 </View>
@@ -98,7 +98,7 @@ export default function ConsentScreen() {
                             style={{ width: 24, height: 24, resizeMode: 'contain' }}
                         />
                     </View>
-                    <Text style={[styles.infoText, { color: '#000000' }]}>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'RobotoMono_400Regular' }]}>
                         Solo se comparten datos anónimos y agregados.
                     </Text>
                 </View>
@@ -110,14 +110,14 @@ export default function ConsentScreen() {
                             style={{ width: 24, height: 24, resizeMode: 'contain' }}
                         />
                     </View>
-                    <Text style={[styles.infoText, { color: '#000000' }]}>
+                    <Text style={[styles.infoText, { color: '#000000', fontFamily: 'RobotoMono_400Regular' }]}>
                         Puedes eliminar todos tus datos en cualquier momento.
                     </Text>
                 </View>
 
                 {/* Consent Checkboxes */}
                 <View style={styles.consentSection}>
-                    <Text style={[styles.consentTitle, { color: '#000000' }]}>
+                    <Text style={[styles.consentTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                         Tu consentimiento
                     </Text>
 
@@ -134,11 +134,11 @@ export default function ConsentScreen() {
                             style={{ width: 26, height: 26, resizeMode: 'contain' }}
                         />
                         <View style={styles.checkboxTextContainer}>
-                            <Text style={[styles.checkboxLabel, { color: '#000000' }]}>
+                            <Text style={[styles.checkboxLabel, { color: '#000000', fontFamily: 'RobotoMono_400Regular', fontWeight: 'bold' }]}>
                                 Acepto participar en el programa de bienestar{' '}
                                 <Text style={{ color: '#000000' }}>*</Text>
                             </Text>
-                            <Text style={[styles.checkboxDescription, { color: '#828282' }]}>
+                            <Text style={[styles.checkboxDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                                 Tus datos anonimizados ayudan a mejorar el apoyo estudiantil.
                             </Text>
                         </View>
@@ -157,10 +157,10 @@ export default function ConsentScreen() {
                             style={{ width: 26, height: 26, resizeMode: 'contain' }}
                         />
                         <View style={styles.checkboxTextContainer}>
-                            <Text style={[styles.checkboxLabel, { color: '#000000' }]}>
+                            <Text style={[styles.checkboxLabel, { color: '#000000', fontFamily: 'RobotoMono_400Regular', fontWeight: 'bold' }]}>
                                 Acepto ser contactado si necesito apoyo
                             </Text>
-                            <Text style={[styles.checkboxDescription, { color: '#828282' }]}>
+                            <Text style={[styles.checkboxDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                                 Opcional. Un tutor puede comunicarse contigo.
                             </Text>
                         </View>
@@ -174,7 +174,7 @@ export default function ConsentScreen() {
                     style={[styles.declineButton, { borderColor: 'transparent' }]}
                     onPress={handleDecline}
                 >
-                    <Text style={[styles.declineText, { color: '#828282' }]}>
+                    <Text style={[styles.declineText, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                         Ahora no
                     </Text>
                 </Pressable>
@@ -312,8 +312,9 @@ const styles = StyleSheet.create({
         gap: 8,
     },
     acceptText: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '600',
+        fontFamily: 'RobotoMono_400Regular',
         color: '#FFFFFF',
     },
     buttonDisabled: {

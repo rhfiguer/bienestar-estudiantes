@@ -84,10 +84,12 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 28,
     fontWeight: 'bold',
+    fontFamily: 'EBGaramond_500Medium',
   },
   subtitle: {
     fontSize: 16,
     marginTop: 4,
+    fontFamily: 'RobotoMono_400Regular',
   },
   listContent: {
     padding: 20,
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 16,
+    fontFamily: 'EBGaramond_500Medium',
   },
   loadingContainer: {
     flex: 1,

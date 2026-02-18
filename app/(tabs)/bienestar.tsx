@@ -60,8 +60,8 @@ export default function BienestarScreen() {
             >
                 {/* Header */}
                 <View style={styles.header}>
-                    <Text style={[styles.title, { color: '#000000' }]}>Bienestar</Text>
-                    <Text style={[styles.subtitle, { color: '#828282' }]}>
+                    <Text style={[styles.title, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>Bienestar</Text>
+                    <Text style={[styles.subtitle, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                         Tu espacio de autocuidado
                     </Text>
                 </View>
@@ -81,10 +81,10 @@ export default function BienestarScreen() {
                         </View>
 
                         <View style={styles.checkinTextContainer}>
-                            <Text style={[styles.checkinTitle, { color: '#000000' }]}>
+                            <Text style={[styles.checkinTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Check-in de Bienestar
                             </Text>
-                            <Text style={[styles.checkinDescription, { color: '#828282' }]}>
+                            <Text style={[styles.checkinDescription, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                                 5 preguntas · 1 minuto
                             </Text>
                         </View>
@@ -99,7 +99,7 @@ export default function BienestarScreen() {
                 {latestAssessment && latestConfig && (
                     <View style={[styles.lastResultCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                         <View style={styles.lastResultHeader}>
-                            <Text style={[styles.sectionTitle, { color: '#000000' }]}>
+                            <Text style={[styles.sectionTitle, { color: '#000000', fontFamily: 'EBGaramond_500Medium' }]}>
                                 Tu último resultado
                             </Text>
                             <Pressable onPress={() => router.push('/assessment/history' as any)}>
@@ -141,7 +141,7 @@ export default function BienestarScreen() {
                 )}
 
                 {/* Quick Actions */}
-                <Text style={[styles.sectionTitle, { color: '#000000', marginTop: 32 }]}>
+                <Text style={[styles.sectionTitle, { color: '#000000', marginTop: 32, fontFamily: 'EBGaramond_500Medium' }]}>
                     Herramientas
                 </Text>
 
@@ -194,7 +194,7 @@ export default function BienestarScreen() {
 
                 <View style={[styles.infoCard, { backgroundColor: '#FFFFFF', borderColor: '#EDEDED' }]}>
                     <Ionicons name="information-circle-outline" size={20} color="#828282" />
-                    <Text style={[styles.infoText, { color: '#828282' }]}>
+                    <Text style={[styles.infoText, { color: '#828282', fontFamily: 'RobotoMono_400Regular' }]}>
                         Tu bienestar importa. Este cuestionario se recomienda cada 2 semanas y te ayuda a detectar
                         necesidades de apoyo de manera temprana.
                     </Text>
@@ -221,8 +221,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     subtitle: {
-        fontSize: 16,
+        fontSize: 14,
         marginTop: 4,
+        fontFamily: 'RobotoMono_400Regular',
     },
     checkinCard: {
         marginHorizontal: 20,
@@ -265,6 +266,7 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontSize: 14,
         fontWeight: '600',
+        fontFamily: 'RobotoMono_400Regular',
     },
     lastResultCard: {
         marginHorizontal: 16,
@@ -318,11 +320,13 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
     },
     riskBadgeText: {
-        fontSize: 13,
+        fontSize: 12,
         fontWeight: '700',
+        fontFamily: 'RobotoMono_400Regular',
     },
     dateText: {
-        fontSize: 13,
+        fontSize: 12,
+        fontFamily: 'RobotoMono_400Regular',
     },
     quickActions: {
         flexDirection: 'row',
@@ -343,8 +347,9 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     quickActionLabel: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: '500',
+        fontFamily: 'RobotoMono_400Regular',
     },
     infoCard: {
         flexDirection: 'row',
