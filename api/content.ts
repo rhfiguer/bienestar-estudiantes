@@ -2,7 +2,14 @@ import { neon } from '@neondatabase/serverless';
 
 export default async function handler(_req: Request): Promise<Response> {
     try {
-        const sql = neon(process.env.DATABASE_URL!);
+        if (!process.env.DATABASE_URL) {
+            return new Response(JSON.stringify({ error: 'DATABASE_URL not set' }), {
+                status: 500,
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+        const sql = neon(process.env.DATABASE_URL);
 
         const rows = await sql`
             SELECT
@@ -46,11 +53,9 @@ export default async function handler(_req: Request): Promise<Response> {
             },
         });
     } catch (err: any) {
-        return new Response(JSON.stringify({ error: err.message }), {
+        return new Response(JSON.stringify({ error: err.message, stack: err.stack }), {
             status: 500,
             headers: { 'Content-Type': 'application/json' },
         });
     }
 }
-
-export const config = { runtime: 'edge' };
