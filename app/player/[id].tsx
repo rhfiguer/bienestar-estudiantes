@@ -7,6 +7,7 @@ import { ResizeMode, Video } from 'expo-av';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 
 import InlineAudioPlayer from '@/components/InlineAudioPlayer';
 
@@ -149,15 +150,61 @@ export default function PlayerScreen() {
                         )}
                     </>
                 ) : (
-                    <Text style={[styles.bodyText, { color: theme.text, marginTop: 24 }]}>
-                        {item.script || item.body}
-                    </Text>
+                    <View style={{ marginTop: 24 }}>
+                        {item.article ? (
+                            <Markdown style={markdownStyles(theme)}>
+                                {item.article}
+                            </Markdown>
+                        ) : (
+                            <Text style={[styles.bodyText, { color: theme.text }]}>
+                                {item.script || item.body}
+                            </Text>
+                        )}
+                    </View>
                 )}
 
             </ScrollView>
         </View>
     );
 }
+
+const markdownStyles = (theme: typeof Colors.light) => ({
+    body: {
+        fontSize: 17,
+        lineHeight: 27,
+        color: theme.text,
+        fontFamily: 'System',
+    },
+    heading2: {
+        fontSize: 19,
+        fontWeight: '700' as const,
+        color: theme.text,
+        marginTop: 24,
+        marginBottom: 8,
+    },
+    paragraph: {
+        marginBottom: 14,
+        color: theme.text,
+    },
+    bullet_list: {
+        marginBottom: 14,
+    },
+    bullet_list_item: {
+        color: theme.text,
+        marginBottom: 6,
+    },
+    bullet_list_icon: {
+        color: theme.secondaryText,
+    },
+    strong: {
+        fontWeight: '700' as const,
+        color: theme.text,
+    },
+    em: {
+        fontStyle: 'italic' as const,
+        color: theme.text,
+    },
+});
 
 const styles = StyleSheet.create({
     container: {
