@@ -1,14 +1,15 @@
 import { neon } from '@neondatabase/serverless';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default async function handler(_req: Request): Promise<Response> {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Content-Type', 'application/json');
+
+    if (!process.env.DATABASE_URL) {
+        return res.status(500).json({ error: 'DATABASE_URL not set' });
+    }
+
     try {
-        if (!process.env.DATABASE_URL) {
-            return new Response(JSON.stringify({ error: 'DATABASE_URL not set' }), {
-                status: 500,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-
         const sql = neon(process.env.DATABASE_URL);
 
         const rows = await sql`
@@ -46,16 +47,8 @@ export default async function handler(_req: Request): Promise<Response> {
             createdAt: item.createdAt,
         }));
 
-        return new Response(JSON.stringify(formatted), {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-        });
+        return res.status(200).json(formatted);
     } catch (err: any) {
-        return new Response(JSON.stringify({ error: err.message, stack: err.stack }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        return res.status(500).json({ error: err.message, stack: err.stack });
     }
 }
