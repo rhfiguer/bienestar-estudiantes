@@ -1,6 +1,11 @@
 import { ContentItem } from '@/constants/data';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL + '/api/app/content';
+// En web (Vercel) usa la propia /api/content — en nativo usa la variable de entorno como fallback
+const BASE_URL = typeof window !== 'undefined'
+    ? ''
+    : (process.env.EXPO_PUBLIC_API_URL ?? '');
+
+const API_URL = `${BASE_URL}/api/content`;
 
 export const ContentService = {
     // Fetch all content

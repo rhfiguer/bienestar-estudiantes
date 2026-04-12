@@ -11,6 +11,7 @@ export interface ContentItem {
     contentUrl: string;
     body: string;
     script?: string;
+    article?: string;
     createdAt: string;
 }
 
