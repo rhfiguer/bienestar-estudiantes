@@ -28,7 +28,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 article,
                 "createdAt"
             FROM "ProductionQueue"
-            WHERE status IN ('COMPLETED', 'PUBLISHED')
+            WHERE status = 'PUBLISHED'
             ORDER BY "createdAt" DESC
         `;
 
